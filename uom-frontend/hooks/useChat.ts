@@ -24,7 +24,7 @@ export function useChat() {
   useEffect(() => {
     const savedToken = localStorage.getItem('chat_token');
     if (savedToken) initChat(savedToken);
-    else router.push('/login');
+    else router.push('/auth/login');
   }, []);
 
   const initChat = async (savedToken: string) => {
