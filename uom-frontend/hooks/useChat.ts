@@ -47,7 +47,7 @@ export function useChat() {
       setWs(socket);
     } catch {
       localStorage.removeItem('chat_token');
-      router.push('/login');
+      router.push('/auth/auth/login');
     }
   };
 
@@ -64,7 +64,7 @@ export function useChat() {
     setMessages([]);
     setIsConnected(false);
     localStorage.removeItem('chat_token');
-    router.push('/login');
+    router.push('/auth/login');
   };
 
   return {
