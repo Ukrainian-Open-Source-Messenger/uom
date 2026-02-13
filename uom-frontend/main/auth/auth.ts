@@ -6,11 +6,11 @@ export interface AuthResponse {
   error?: string;
 }
 
-export async function loginRequest(username: string, password: string): Promise<AuthResponse> {
+export async function loginRequest(username: string, password: string, email: string): Promise<AuthResponse> {
   try {
     const { data } = await axios.post(
       `${Config.PUBLIC_API_URL_GETEWAY}/api/auth/login`,
-      { username, password },
+      { username, password, email },
       {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -25,11 +25,11 @@ export async function loginRequest(username: string, password: string): Promise<
   }
 }
 
-export async function registerRequest(username: string, password: string): Promise<AuthResponse> {
+export async function registerRequest(username: string, password: string, email: string): Promise<AuthResponse> {
   try {
     const { data } = await axios.post(
       `${Config.PUBLIC_API_URL_GETEWAY}/api/auth/register`,
-      { username, password },
+      { username, password, email },
       {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -44,7 +44,7 @@ export async function registerRequest(username: string, password: string): Promi
   }
 }
 
-// tockem
+// tokem
 export function saveToken(token: string) {
   localStorage.setItem("chat_token", token);
 };

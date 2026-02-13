@@ -9,6 +9,7 @@ import { validateRegister } from "@/main/auth/validation";
 export default function RegisterPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +18,7 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
 
-    const validationError = validateRegister(username, password);
+    const validationError = validateRegister(username, password, email);
     if (validationError) {
       setError(validationError);
       return;
@@ -26,12 +27,12 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      const data = await registerRequest(username, password);
+      const data = await registerRequest(username, password, email);
 
       saveToken(data.token);
       router.replace("/web-app");
     } catch (err: any) {
-      setError(err.message || "Помилка з'єднання з сервером");
+      setError(err.message || "error");
     } finally {
       setIsLoading(false);
     }
@@ -49,6 +50,13 @@ export default function RegisterPage() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Ім'я користувача"
+        />
+
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Пошта"
         />
 
         <input

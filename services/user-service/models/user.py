@@ -1,17 +1,15 @@
 from pydantic import BaseModel
 
-class RegisterRequest(BaseModel):
+class MakeRequest(BaseModel):
     username: str
     password: str
     email: str
 
-class LoginRequest(BaseModel):
-    username: str
-    password: str
+class GetMeByEmailRequest(BaseModel):
     email: str
 
-class VerifyRequest(BaseModel):
-    token: str
+class GetMeByIdRequest(BaseModel):
+    id: str
 
 class User(BaseModel):
     id: str

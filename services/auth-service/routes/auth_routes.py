@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from models.auth import RegisterRequest, LoginRequest, VerifyRequest
-from handlers.auth import AuthHandler
+from handlers.auth_handler import AuthHandler
 from utils.auth import authenticate
 
 router = APIRouter(prefix="/auth")

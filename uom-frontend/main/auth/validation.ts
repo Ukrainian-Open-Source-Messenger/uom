@@ -1,5 +1,5 @@
 // ====== login ======
-export function validateLogin(username: string, password: string ): string | null {
+export function validateLogin(username: string, password: string, email: string): string | null {
   if (!username.trim() || !password.trim()) {
     return "Введіть ім'я користувача та пароль";
   }
@@ -12,7 +12,7 @@ export function validateLogin(username: string, password: string ): string | nul
 };
 
 // ====== register ======
-export function validateRegister(username: string, password: string): string | null {
+export function validateRegister(username: string, password: string, email: string): string | null {
   if (!username.trim() || !password.trim()) {
     return "Введіть ім'я користувача та пароль";
   }

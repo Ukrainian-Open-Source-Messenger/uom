@@ -9,6 +9,7 @@ import { validateLogin } from "@/main/auth/validation";
 export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +18,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
 
-    const validationError = validateLogin(username, password);
+    const validationError = validateLogin(username, password, email);
     if (validationError) {
       setError(validationError);
       return;
@@ -26,12 +27,12 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const data = await loginRequest(username, password);
+      const data = await loginRequest(username, password, email);
 
       saveToken(data.token);
       router.replace('/web-app');
     } catch (err: any) {
-      setError(err.message || "Помилка з'єднання з сервером");
+      setError(err.message || "error");
     } finally {
       setIsLoading(false);
     }
@@ -49,6 +50,13 @@ export default function LoginPage() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Ім'я"
+        />
+
+                <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Пошта"
         />
 
         <input
