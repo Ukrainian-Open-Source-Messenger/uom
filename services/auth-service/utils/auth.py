@@ -1,7 +1,5 @@
 import time
-from typing import Optional
-from fastapi import HTTPException, Header
-from jose import jwt, JWTError
+from jose import jwt
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 from config import JWT_SECRET, JWT_ALGORITHM
@@ -25,14 +23,3 @@ def create_token(user_id: str, username: str) -> str:
         "iat": int(time.time())
     }
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
-
-def authenticate(authorization: Optional[str] = Header(None)):
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="No token provided")
-
-    token = authorization.replace("Bearer ", "")
-
-    try:
-        return jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
