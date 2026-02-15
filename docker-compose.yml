@@ -1,0 +1,24 @@
+services:
+  auth:
+    build: ./services/auth-service
+    environment:
+      APP_PORT: 3001
+
+  user:
+    build: ./services/user-service
+    environment:
+      APP_PORT: 3004
+
+  message:
+    build: ./services/message-service
+    environment:
+      APP_PORT: 3002
+
+  real-time:
+    build: ./services/real-time-service
+    environment:
+      APP_PORT: 3003
+
+volumes:
+  postgres_data:
+  mongo_data:

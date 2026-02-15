@@ -22,7 +22,7 @@ impl Config {
             .collect();
 
         Self {
-            port: env::var("PORT")
+            port: env::var("APP_PORT")
                 .unwrap_or_else(|_| "8080".into())
                 .parse()
                 .unwrap_or(8080),
