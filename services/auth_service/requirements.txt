@@ -7,3 +7,4 @@ python_jose==3.5.0
 uvicorn==0.40.0
 pytest==8.3.4
 pytest-asyncio==0.22.0
+orjson

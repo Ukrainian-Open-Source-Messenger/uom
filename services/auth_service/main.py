@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.auth_routes import router as auth_router
+from fastapi.responses import ORJSONResponse
 
-app = FastAPI(title="auth-service")
+app = FastAPI(title="auth-service", default_response_class=ORJSONResponse)
 
 # Middleware
 app.add_middleware(

@@ -1,11 +1,12 @@
+import httpx
+import orjson
 from fastapi import HTTPException
 from services.auth_service.models.auth import RegisterRequest
 from utils.auth import hash_password, create_token
-import httpx
 from fastapi import HTTPException
 from config import USER_SERVICE
 
-def handle_register(data: RegisterRequest):
+async def handle_register(data: RegisterRequest):
     username = data.username.strip()
     password = data.password
     email = data.email
@@ -17,8 +18,9 @@ def handle_register(data: RegisterRequest):
     }
 
     try:
-        response = httpx.post(f"{USER_SERVICE}/api/make_user", json=payload, timeout=10)
-        response.raise_for_status()
+        async with httpx.AsyncClient() as client:
+            response = await client.post(f"{USER_SERVICE}/api/make_user", json=payload, timeout=10)
+            response.raise_for_status()
     except httpx.HTTPStatusError as e:
         raise HTTPException(
             status_code=e.response.status_code,
@@ -30,7 +32,7 @@ def handle_register(data: RegisterRequest):
             detail=f"Failed to connect to user service: {str(e)}"
         )
 
-    response_server = response.json()
+    response_server = orjson.loads(response.content)
     user_id = response_server.get("id")
     username_from_service = response_server.get("username")
 

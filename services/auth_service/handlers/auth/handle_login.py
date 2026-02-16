@@ -1,18 +1,20 @@
+import httpx
+import orjson
 from fastapi import HTTPException
 from services.auth_service.models.auth import LoginRequest
 from utils.auth import verify_password, create_token
-import httpx
 from fastapi import HTTPException
 from config import USER_SERVICE
 
-def handle_login(data: LoginRequest):
+async def handle_login(data: LoginRequest):
     email = data.email
     username = data.username.strip()
     password = data.password
 
-    try:
-        response = httpx.post(f"{USER_SERVICE}/api/get_me_by_email", json={"email": email}, timeout=10)
-        response.raise_for_status()
+    try: 
+        async with httpx.AsyncClient() as client:
+            response = await client.post(f"{USER_SERVICE}/api/get_me_by_email", json={"email": email}, timeout=10)
+            response.raise_for_status()
     except httpx.HTTPStatusError as e:
         raise HTTPException(
             status_code=e.response.status_code,
@@ -24,7 +26,7 @@ def handle_login(data: LoginRequest):
             detail=f"Failed to connect to user service: {str(e)}"
         )
 
-    response_server = response.json()
+    response_server = orjson.loads(response.content)
     user_id = response_server.get("id")
     password_from_service = response_server.get("password")
     username_from_service = response_server.get("username")
