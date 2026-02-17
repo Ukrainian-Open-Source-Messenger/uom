@@ -1,5 +1,5 @@
 import time
-import uuid
+import uuid_utils as uuid
 from fastapi import HTTPException
 from models.message import Message, MessageCreate
 from storage import messages
@@ -39,7 +39,7 @@ class Messages:
             )
 
         message = Message(
-            id=f"msg_{int(time.time())}_{uuid.uuid4().hex[:8]}",
+            id=uuid.uuid7().bytes,
             userId=user["userId"],
             username=user["username"],
             text=text,
