@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from models.user import GetMeByEmailRequest
 from utils.postgreSQL import get_connection, release_connection
 
-def handle_get_me_by_email(data: GetMeByEmailRequest):
+async def handle_get_me_by_email(data: GetMeByEmailRequest):
     email = data.email.strip() if data.email else None
 
     if not email:

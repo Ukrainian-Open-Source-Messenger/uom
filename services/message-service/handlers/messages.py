@@ -8,7 +8,7 @@ from config import MAX_MESSAGES
 class Messages:
 
     @staticmethod
-    def handle_get_messages(limit: int = 50, offset: int = 0):
+    async def handle_get_messages(limit: int = 50, offset: int = 0):
         sliced = messages[-(limit + offset):]
         paginated = sliced[-limit:]
         return {
@@ -19,14 +19,14 @@ class Messages:
         }
 
     @staticmethod
-    def handle_get_recent_messages(limit: int = 50):
+    async def handle_get_recent_messages(limit: int = 50):
         return {
             "messages": messages[-limit:],
             "total": len(messages)
         }
 
     @staticmethod
-    def handle_create_message(data: MessageCreate, user):
+    async def handle_create_message(data: MessageCreate, user):
         text = data.text.strip()
 
         if not text:

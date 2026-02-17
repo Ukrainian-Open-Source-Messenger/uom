@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.messages_routes import router as messages_router
+from fastapi.responses import ORJSONResponse
 
-app = FastAPI(title="message-service")
+app = FastAPI(title="message-service", response_class=ORJSONResponse)
 
 # Middleware
 app.add_middleware(

@@ -4,7 +4,7 @@ from fastapi import HTTPException
 from models.user import MakeRequest
 from utils.postgreSQL import get_connection, release_connection
 
-def handle_make_user(data: MakeRequest):
+async def handle_make_user(data: MakeRequest):
     username = data.username.strip()
     password = data.password
     email = data.email
