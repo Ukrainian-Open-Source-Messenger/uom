@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from models.user import GetMeByIdRequest
 from utils.postgreSQL import get_connection, release_connection
 
-def handle_get_me_by_id(data: GetMeByIdRequest):
+async def handle_get_me_by_id(data: GetMeByIdRequest):
     id = data.id.strip() if data.id else None
 
     if not id:

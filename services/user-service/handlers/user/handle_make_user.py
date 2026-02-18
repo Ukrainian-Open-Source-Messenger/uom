@@ -1,10 +1,10 @@
 import time
-import uuid
+import uuid_utils as uuid
 from fastapi import HTTPException
 from models.user import MakeRequest
 from utils.postgreSQL import get_connection, release_connection
 
-def handle_make_user(data: MakeRequest):
+async def handle_make_user(data: MakeRequest):
     username = data.username.strip()
     password = data.password
     email = data.email
@@ -17,7 +17,7 @@ def handle_make_user(data: MakeRequest):
     if len(password) < 6:
         raise HTTPException(status_code=400, detail="Password must be at least 6 characters")
 
-    user_id = f"user_{int(time.time())}_{uuid.uuid4().hex[:8]}"
+    user_id = uuid.uuid7().bytes
 
     conn = get_connection()
 
