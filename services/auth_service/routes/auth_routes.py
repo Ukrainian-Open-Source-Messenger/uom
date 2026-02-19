@@ -12,6 +12,4 @@ async def register(data: RegisterRequest):
 async def login(data: LoginRequest):
     return await AuthHandler.login(data)
 
-@router.post("/verify")
-async def verify_token(data: VerifyRequest):
-    return await AuthHandler.verify_token(data)
+

@@ -22,13 +22,3 @@ class LoginRequest(BaseModel):
     username: str
     password: str
     email: EmailStr
-
-class VerifyRequest(BaseModel):
-    token: str
-
-class User(BaseModel):
-    id: str
-    username: str
-    password: str
-    createdAt: int
-    email: EmailStr
