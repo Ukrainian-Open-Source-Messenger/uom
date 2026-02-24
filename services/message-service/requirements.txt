@@ -1,7 +1,0 @@
-fastapi==0.129.0
-pydantic==2.12.5
-python-dotenv==1.2.1
-python_jose==3.5.0
-uvicorn==0.40.0
-uuid-utils
-orjson
